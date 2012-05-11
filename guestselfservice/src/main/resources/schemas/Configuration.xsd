@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="http://htng.org/PWS/2009A/GuestSelfService/Configuration/Types" xmlns:comm="http://htng.org/PWS/2009A/GuestSelfService/Common/Types" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://htng.org/PWS/2009A/GuestSelfService/Configuration/Types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://htng.org/PWS/2009A/GuestSelfService/Common/Types" schemaLocation="Common.xsd"/>
+	<xs:element name="TemplateCategoryRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TemplateCategoryIDs" type="comm:UniqueIDList" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TemplateCategoryResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="comm:ResultStatus"/>
+				<xs:element name="TemplateCategories" type="tns:TemplateCategoryList" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TemplateInfoRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TemplateIDs" type="comm:UniqueIDList" minOccurs="0"/>
+				<xs:element name="Type" type="xs:string" minOccurs="0"/>
+				<xs:element name="ResortId" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TemplateInfoResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="comm:ResultStatus"/>
+				<xs:element name="Templates" type="tns:TemplateList" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PaymentConditionRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PaymentConditionIDs" type="comm:UniqueIDList" minOccurs="0"/>
+				<xs:element name="ResortId" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PaymentConditionResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="comm:ResultStatus"/>
+				<xs:element name="PaymentConditions" type="tns:PaymentConditionList" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="TemplateCategory">
+		<xs:sequence>
+			<xs:element name="TemplateCategoryIDs" type="comm:UniqueIDList"/>
+			<xs:element name="Name" type="comm:Text" maxOccurs="unbounded"/>
+			<xs:element name="Order" type="xs:unsignedInt" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TemplateCategoryList">
+		<xs:sequence>
+			<xs:element name="TemplateCategory" type="tns:TemplateCategory" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RelatedTemplate">
+		<xs:sequence>
+			<xs:element name="TemplateIDs" type="comm:UniqueIDList"/>
+		</xs:sequence>
+		<xs:attribute name="relatedItemType" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="RelatedTemplateList">
+		<xs:sequence>
+			<xs:element name="RelatedTemplate" type="tns:RelatedTemplate" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RelatedTemplateCategory">
+		<xs:sequence>
+			<xs:element name="TemplateCategoryIDs" type="comm:UniqueIDList"/>
+		</xs:sequence>
+		<xs:attribute name="relatedItemType" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="RelatedTemplateCategoryList">
+		<xs:sequence>
+			<xs:element name="RelatedTemplateCategory" type="tns:RelatedTemplateCategory" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RelatedItemList">
+		<xs:sequence>
+			<xs:element name="RelatedTemplateCategories" type="tns:RelatedTemplateCategoryList" minOccurs="0"/>
+			<xs:element name="RelatedTemplates" type="tns:RelatedTemplateList" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Tax">
+		<xs:sequence>
+			<xs:element name="TaxRate" type="xs:double"/>
+			<xs:element name="TaxAmount" type="comm:Amount" minOccurs="0"/>
+			<xs:element name="TaxName" type="comm:Text" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TaxList">
+		<xs:sequence>
+			<xs:element name="Tax" type="tns:Tax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Price">
+		<xs:sequence>
+			<xs:element name="Name" type="comm:Text" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Price" type="comm:Amount" minOccurs="0"/>
+			<xs:element name="Taxes" type="tns:TaxList" minOccurs="0"/>
+			<xs:element name="Description" type="comm:Text" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PriceList">
+		<xs:sequence>
+			<xs:element name="Price" type="tns:Price" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LinkedPaymentConditionList">
+		<xs:sequence>
+			<xs:element name="PaymentConditionIDs" type="comm:UniqueIDList" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AlternativeLocationList">
+		<xs:sequence>
+			<xs:element name="AlternativeLocation" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Template">
+		<xs:sequence>
+			<xs:element name="TemplateIDs" type="comm:UniqueIDList"/>
+			<xs:element name="Name" type="comm:Text" maxOccurs="unbounded"/>
+			<xs:element name="TemplateCategories" type="tns:TemplateCategoryList"/>
+			<xs:element name="ValidFrom" type="xs:date" minOccurs="0"/>
+			<xs:element name="ValidUntil" type="xs:date" minOccurs="0"/>
+			<xs:element name="Description" type="comm:Text" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Note" type="comm:Text" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Prices" type="tns:PriceList" minOccurs="0"/>
+			<xs:element name="RelatedItems" type="tns:RelatedTemplateList" minOccurs="0"/>
+			<xs:element name="Media" type="comm:Media" minOccurs="0"/>
+			<xs:element name="Location" type="xs:string" minOccurs="0"/>
+			<xs:element name="AlternativeLocations" type="tns:AlternativeLocationList" minOccurs="0"/>
+			<xs:element name="MinimumInAdvanceBookings" type="xs:duration" minOccurs="0"/>
+			<xs:element name="MaximumInAdvanceBookings" type="xs:duration" minOccurs="0"/>
+			<xs:element name="PaymentConditions" type="tns:LinkedPaymentConditionList" minOccurs="0"/>
+			<xs:element name="AvailableResources" type="comm:ResourceList" minOccurs="0"/>
+			<xs:element name="StartTime" type="xs:string" minOccurs="0"/>
+			<xs:element name="EndTime" type="xs:string" minOccurs="0"/>
+			<xs:element name="StartInterval" type="xs:duration" minOccurs="0"/>
+			<xs:element name="ActivityType" type="xs:string" minOccurs="0"/>
+			<xs:element name="Duration" type="xs:duration" minOccurs="0"/>
+			<xs:element name="DateSelection" type="xs:unsignedInt" minOccurs="0"/>
+			<xs:element name="GiftCertificateType" type="xs:string" minOccurs="0"/>
+			<xs:element name="GiftCertificatePrintName" type="comm:Text" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="GiftCertificatePrintText1" type="comm:Text" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="GiftCertificatePrintText2" type="comm:Text" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="GiftCertificatePrintText3" type="comm:Text" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Weight" type="xs:double" minOccurs="0"/>
+			<xs:element name="Stock" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TemplateList">
+		<xs:sequence>
+			<xs:element name="Template" type="tns:Template" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PaymentConditionValue">
+		<xs:sequence>
+			<xs:element name="Value" type="comm:Amount"/>
+		</xs:sequence>
+		<xs:attribute name="type" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="PaymentCondition">
+		<xs:sequence>
+			<xs:element name="PaymentConditionIDs" type="comm:UniqueIDList"/>
+			<xs:element name="Value" type="tns:PaymentConditionValue"/>
+			<xs:element name="CancellationWindow" type="xs:duration" minOccurs="0"/>
+			<xs:element name="DueDate" type="xs:duration" minOccurs="0"/>
+			<xs:element name="Taxes" type="tns:TaxList" minOccurs="0"/>
+			<xs:element name="Description" type="comm:Text" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ResortId" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="type" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="PaymentConditionList">
+		<xs:sequence>
+			<xs:element name="PaymentCondition" type="tns:PaymentCondition" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

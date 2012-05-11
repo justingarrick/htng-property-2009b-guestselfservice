@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://htng.org/PWS/2009A/GuestSelfService/Common/Types" targetNamespace="http://htng.org/PWS/2009A/GuestSelfService/Common/Types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="Address">
+		<xs:sequence>
+			<xs:element name="AddressLine" type="xs:string" minOccurs="0" maxOccurs="5"/>
+			<xs:element name="CityName" type="xs:string" minOccurs="0"/>
+			<xs:element name="StateProv" type="xs:string" minOccurs="0"/>
+			<xs:element name="CountryCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="PostalCode" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="addressType" type="xs:string"/>
+		<xs:attribute name="otherAddressType" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Amount">
+		<xs:simpleContent>
+			<xs:extension base="xs:double">
+				<xs:attribute name="currencyCode" type="xs:string"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="CreditCard">
+		<xs:sequence>
+			<xs:element name="CardCode" type="xs:string"/>
+			<xs:element name="CardHolderName" type="xs:string" minOccurs="0"/>
+			<xs:element name="CardNumber" type="xs:string"/>
+			<xs:element name="SeriesCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="EffectiveDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="ExpirationDate" type="xs:date"/>
+		</xs:sequence>
+		<xs:attribute name="cardType" type="xs:string"/>
+		<xs:attribute name="otherCardType" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="DescriptiveText">
+		<xs:choice>
+			<xs:element name="Text" type="tns:TextList"/>
+			<xs:element name="Image" type="xs:string"/>
+			<xs:element name="Url" type="xs:anyURI"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="Membership">
+		<xs:sequence>
+			<xs:element name="MembershipType" type="xs:string" minOccurs="0"/>
+			<xs:element name="MembershipNumber" type="xs:string"/>
+			<xs:element name="MembershipLevel" type="xs:string" minOccurs="0"/>
+			<xs:element name="MemberName" type="xs:string" minOccurs="0"/>
+			<xs:element name="EffectiveDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="ExpirationDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="CurrentPoints" type="xs:long" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GovernmentID">
+		<xs:sequence>
+			<xs:element name="DocumentType" type="xs:string"/>
+			<xs:element name="DocumentNumber" type="xs:string"/>
+			<xs:element name="EffectiveDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="ExpirationDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="PlaceOfIssue" type="xs:string" minOccurs="0"/>
+			<xs:element name="CountryOfIssue" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GovernmentIDList">
+		<xs:sequence>
+			<xs:element name="GovernmentID" type="tns:GovernmentID" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonName">
+		<xs:sequence>
+			<xs:element name="NameTitle" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="FirstName" type="xs:string" minOccurs="0"/>
+			<xs:element name="MiddleName" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="LastName" type="xs:string"/>
+			<xs:element name="NameSuffix" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="nameOrdered" type="xs:string"/>
+		<xs:attribute name="familiarName" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Phone">
+		<xs:choice>
+			<xs:element name="PhoneNumber" type="xs:string"/>
+			<xs:element name="PhoneData">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CountryAccessCode" type="xs:string"/>
+						<xs:element name="AreaCode" type="xs:string"/>
+						<xs:element name="PhoneNumber" type="xs:string"/>
+						<xs:element name="Extension" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="phoneType" type="xs:string"/>
+		<xs:attribute name="phoneRole" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="ResultStatus">
+		<xs:sequence>
+			<xs:element name="Text" type="tns:TextList" minOccurs="0"/>
+			<xs:element name="IDs" type="tns:UniqueIDList" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="resultStatusFlag" type="tns:ResultStatusFlag"/>
+		<xs:attribute name="code" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Text">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="language" type="xs:language" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="TextList">
+		<xs:sequence>
+			<xs:element name="TextElement" type="tns:Text" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UniqueID">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="source" type="xs:string"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="UniqueIDList">
+		<xs:sequence>
+			<xs:element name="UniqueID" type="tns:UniqueID" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UserDefinedValue">
+		<xs:choice>
+			<xs:element name="CharacterValue" type="xs:string"/>
+			<xs:element name="DateValue" type="xs:dateTime"/>
+			<xs:element name="NumericValue" type="xs:float"/>
+		</xs:choice>
+		<xs:attribute name="valueName" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="UserDefinedValueList">
+		<xs:sequence>
+			<xs:element name="UserDefinedValue" type="tns:UserDefinedValue" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Resource">
+		<xs:sequence>
+			<xs:element name="Resource" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="category" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Providers"/>
+					<xs:enumeration value="Facilities"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="gender" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ResourceList">
+		<xs:sequence>
+			<xs:element name="Resource" type="tns:Resource" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PreferenceElement">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="preferenceType" type="xs:string" use="required"/>
+				<xs:attribute name="preferred" type="xs:string" use="required"/>
+				<xs:attribute name="mode" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="PreferenceElementList">
+		<xs:sequence>
+			<xs:element name="Preference" type="tns:PreferenceElement" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BookingIdentification">
+		<xs:sequence>
+			<xs:element name="BookingIDs" type="tns:UniqueIDList"/>
+			<xs:element name="ReferenceNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="Remark" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BookingIdentificationList">
+		<xs:sequence>
+			<xs:element name="Booking" type="tns:BookingIdentification" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Media">
+		<xs:sequence>
+			<xs:element name="MediaID" type="tns:UniqueIDList" minOccurs="0"/>
+			<xs:element name="MediaFormat" type="xs:string" minOccurs="0"/>
+			<xs:element name="MediaURI" type="xs:anyURI" minOccurs="0"/>
+			<xs:element name="MediaData" type="xs:base64Binary" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OGTimeSpan">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Represents a start date along with either a duration or end date.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Start" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">A date and time that represent the scheduled start time of the activity represented.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="End" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">The estimated completion date and time of the activity represented.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--Attribute Groups-->
+	<xs:attributeGroup name="RecordAdministratorAttributes">
+		<xs:attribute name="insertUser" type="xs:string"/>
+		<xs:attribute name="insertDate" type="xs:dateTime"/>
+		<xs:attribute name="updateUser" type="xs:string"/>
+		<xs:attribute name="updateDate" type="xs:dateTime"/>
+		<xs:attribute name="inactiveDate" type="xs:date"/>
+	</xs:attributeGroup>
+	<!--Element place holders for complex types-->
+	<!--<xs:element name="ResultStatus" type="tns:ResultStatus"/>-->
+	<!--Enumerated Data Types-->
+	<xs:simpleType name="BlackListFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="REMOVE"/>
+			<xs:enumeration value="SET"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Gender">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FEMALE"/>
+			<xs:enumeration value="MALE"/>
+			<xs:enumeration value="UNKNOWN"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ReservationStatusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CANCELLED"/>
+			<xs:enumeration value="CHECKED_IN"/>
+			<xs:enumeration value="CHECKED_OUT"/>
+			<xs:enumeration value="RESERVED"/>
+			<xs:enumeration value="WAITLISTED"/>
+			<xs:enumeration value="OTHER"/>
+			<xs:enumeration value="REVERSE_CHECKED_IN"/>
+			<xs:enumeration value="REVERSE_CHECKED_OUT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ResultStatusFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FAIL"/>
+			<xs:enumeration value="SUCCESS"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SubscriptionAction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OTHER"/>
+			<xs:enumeration value="SUBSCRIBE"/>
+			<xs:enumeration value="UNSUBSCRIBE"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

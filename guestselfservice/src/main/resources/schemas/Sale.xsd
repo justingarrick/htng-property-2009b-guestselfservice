@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="http://htng.org/PWS/2009A/GuestSelfService/Sale/Types" xmlns:comm="http://htng.org/PWS/2009A/GuestSelfService/Common/Types" xmlns:n="http://htng.org/PWS/2009A/GuestSelfService/Name/Types" xmlns:b="http://htng.org/PWS/2009A/GuestSelfService/Booking/Types" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://htng.org/PWS/2009A/GuestSelfService/Sale/Types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://htng.org/PWS/2009A/GuestSelfService/Common/Types" schemaLocation="Common.xsd"/>
+	<xs:import namespace="http://htng.org/PWS/2009A/GuestSelfService/Name/Types" schemaLocation="Name.xsd"/>
+	<xs:import namespace="http://htng.org/PWS/2009A/GuestSelfService/Booking/Types" schemaLocation="Booking.xsd"/>
+	<xs:element name="SaleRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ProfileIdentification" type="tns:ProfileIdentification"/>
+				<xs:element name="Payments" type="tns:PaymentList"/>
+				<xs:element name="Items" type="tns:ItemList"/>
+				<xs:element name="ResortId" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SaleResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="comm:ResultStatus"/>
+				<xs:element name="InvoiceNumber" type="xs:string"/>
+				<xs:element name="InvoiceDate" type="xs:date"/>
+				<xs:element name="ReceiptImage" type="comm:Media" minOccurs="0"/>
+				<xs:element name="GiftCertificates" type="tns:GiftCertificateList" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GiftCertificateData">
+		<xs:sequence>
+			<xs:element name="GiftCertificateNumber" type="xs:string"/>
+			<xs:element name="GiftCertificateData" type="comm:Media" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GiftCertificateList">
+		<xs:sequence>
+			<xs:element name="GiftCertificate" type="tns:GiftCertificateData" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ShippingCostItem">
+		<xs:sequence>
+			<xs:element name="Price" type="comm:Amount"/>
+			<xs:element name="Description" type="comm:Text" minOccurs="0"/>
+			<xs:element name="TemplateID" type="comm:UniqueID" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Item">
+		<xs:sequence>
+			<xs:element name="TemplateIDs" type="comm:UniqueIDList"/>
+			<xs:element name="Price" type="comm:Amount"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GiftCertificateItem">
+		<xs:sequence>
+			<xs:element name="TemplateIDs" type="comm:UniqueIDList"/>
+			<xs:element name="Price" type="comm:Amount"/>
+			<xs:element name="BuyerName" type="xs:string" minOccurs="0"/>
+			<xs:element name="DedicationText" type="xs:string" minOccurs="0"/>
+			<xs:element name="LanguageCode" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BookingItem">
+		<xs:sequence>
+			<xs:element name="BookingIDs" type="comm:UniqueIDList"/>
+			<xs:element name="Type" type="xs:string" minOccurs="0"/>
+			<xs:element name="Price" type="comm:Amount"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CreateBookingItem">
+		<xs:sequence>
+			<xs:element name="BookingIdentification" type="comm:BookingIdentification"/>
+			<xs:element name="ModifyBookingIDs" type="comm:UniqueIDList" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ItemList">
+		<xs:sequence>
+			<xs:element name="Booking" type="tns:BookingItem" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="CreateBooking" type="tns:CreateBookingItem" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="GiftCertificate" type="tns:GiftCertificateItem" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Item" type="tns:Item" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ShippingCosts" type="tns:ShippingCostItem" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Payment">
+		<xs:sequence>
+			<xs:element name="Value" type="comm:Amount"/>
+			<xs:element name="PaymentInformation" type="b:PaymentIdentification" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="method" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="PaymentList">
+		<xs:sequence>
+			<xs:element name="Payment" type="tns:Payment" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProfileIdentification">
+		<xs:choice>
+			<xs:element name="Profile" type="n:Profile" minOccurs="0"/>
+			<xs:element name="ProfileIDs" type="comm:UniqueIDList" minOccurs="0"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="http://htng.org/PWS/2009A/GuestSelfService/Query/Types" xmlns:comm="http://htng.org/PWS/2009A/GuestSelfService/Common/Types" xmlns:conf="http://htng.org/PWS/2009A/GuestSelfService/Configuration/Types" xmlns:n="http://htng.org/PWS/2009A/GuestSelfService/Name/Types" xmlns:b="http://htng.org/PWS/2009A/GuestSelfService/Booking/Types" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://htng.org/PWS/2009A/GuestSelfService/Query/Types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://htng.org/PWS/2009A/GuestSelfService/Common/Types" schemaLocation="Common.xsd"/>
+	<xs:import namespace="http://htng.org/PWS/2009A/GuestSelfService/Configuration/Types" schemaLocation="Configuration.xsd"/>
+	<xs:import namespace="http://htng.org/PWS/2009A/GuestSelfService/Name/Types" schemaLocation="Name.xsd"/>
+	<xs:import namespace="http://htng.org/PWS/2009A/GuestSelfService/Booking/Types" schemaLocation="Booking.xsd"/>
+	<xs:element name="FetchBookingRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="BookingIDs" type="comm:UniqueIDList" minOccurs="0"/>
+				<xs:element name="ReferenceNumber" type="xs:string" minOccurs="0"/>
+				<xs:element name="Type" type="xs:string" minOccurs="0"/>
+				<xs:element name="TimeSpan" type="comm:OGTimeSpan" minOccurs="0"/>
+				<xs:element name="ProfileIDs" type="comm:UniqueIDList" minOccurs="0"/>
+				<xs:element name="PersonName" type="comm:PersonName" minOccurs="0"/>
+				<xs:element name="Membership" type="n:NameMembership" minOccurs="0"/>
+				<xs:element name="EmailAddress" type="xs:string" minOccurs="0"/>
+				<xs:element name="Reservation" type="b:ReservationIdentification" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FetchBookingResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="comm:ResultStatus"/>
+				<xs:element name="Bookings" type="tns:BookingList" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FetchGiftCertificateRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="GiftCertificate" type="b:GiftCertificateIdentification"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FetchGiftCertificateResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="comm:ResultStatus"/>
+				<xs:element name="GiftCertificate" type="tns:GiftCertificate" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ParticipantList">
+		<xs:sequence>
+			<xs:element name="Participant" type="comm:PersonName" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Booking">
+		<xs:sequence>
+			<xs:element name="BookingIDs" type="comm:UniqueIDList"/>
+			<xs:element name="ProfileIDs" type="comm:UniqueIDList"/>
+			<xs:element name="TemplateIDs" type="comm:UniqueIDList"/>
+			<xs:element name="ActivityType" type="xs:string" minOccurs="0"/>
+			<xs:element name="Location" type="xs:string" minOccurs="0"/>
+			<xs:element name="Name" type="comm:Text" maxOccurs="unbounded"/>
+			<xs:element name="NumberOfPersons" type="xs:unsignedInt" minOccurs="0"/>
+			<xs:element name="TimeSpan" type="comm:OGTimeSpan"/>
+			<xs:element name="Duration" type="comm:OGTimeSpan" minOccurs="0"/>
+			<xs:element name="Description" type="comm:Text" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Note" type="comm:Text" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Remark" type="xs:string" minOccurs="0"/>
+			<xs:element name="Price" type="comm:Amount"/>
+			<xs:element name="Participants" type="tns:ParticipantList" minOccurs="0"/>
+			<xs:element name="Resources" type="comm:ResourceList" minOccurs="0"/>
+			<xs:element name="RequestedPreferences" type="comm:PreferenceElementList" minOccurs="0"/>
+			<xs:element name="RequestedPreferredResources" type="comm:ResourceList" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="BookingList">
+		<xs:sequence>
+			<xs:element name="Booking" type="tns:Booking" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GiftCertificate">
+		<xs:sequence>
+			<xs:element name="GiftCertificateIdentification" type="b:GiftCertificateIdentification"/>
+			<xs:element name="GiftCertificateType" type="xs:string"/>
+			<xs:element name="GiftCertificateStatus" type="xs:string" minOccurs="0"/>
+			<xs:element name="TemplateIDs" type="comm:UniqueIDList" minOccurs="0"/>
+			<xs:element name="LanguageCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="TemplateName" type="xs:string" minOccurs="0"/>
+			<xs:element name="TemplateDescription" type="xs:string" minOccurs="0"/>
+			<xs:element name="GiftCertificatePrintName" type="xs:string" minOccurs="0"/>
+			<xs:element name="GiftCertificatePrintText1" type="xs:string" minOccurs="0"/>
+			<xs:element name="GiftCertificatePrintText2" type="xs:string" minOccurs="0"/>
+			<xs:element name="GiftCertificatePrintText3" type="xs:string" minOccurs="0"/>
+			<xs:element name="IssueDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="ValidFrom" type="xs:date" minOccurs="0"/>
+			<xs:element name="ValidUntil" type="xs:date" minOccurs="0"/>
+			<xs:element name="RedeemDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="PaidDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="BuyerProfileIDs" type="comm:UniqueIDList" minOccurs="0"/>
+			<xs:element name="BuyerName" type="xs:string" minOccurs="0"/>
+			<xs:element name="DedicationText" type="xs:string" minOccurs="0"/>
+			<xs:element name="Tax" type="conf:Tax" minOccurs="0"/>
+			<xs:element name="Value" type="comm:Amount" minOccurs="0"/>
+			<xs:element name="ServiceTemplateIDs" type="comm:UniqueIDList" minOccurs="0"/>
+			<xs:element name="InvoiceNumber" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

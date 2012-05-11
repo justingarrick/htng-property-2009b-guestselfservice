@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://htng.org/PWS/2009A/GuestSelfService/Name/Types" xmlns:tns="http://htng.org/PWS/2009A/GuestSelfService/Name/Types" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:c="http://htng.org/PWS/2009A/GuestSelfService/Common/Types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://htng.org/PWS/2009A/GuestSelfService/Common/Types" schemaLocation="Common.xsd"/>
+	<xs:element name="Profile" type="tns:Profile"/>
+	<xs:complexType name="BlackList">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="flag" type="c:BlackListFlag"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="Comment">
+		<xs:complexContent>
+			<xs:extension base="c:DescriptiveText">
+				<xs:attribute name="commentType" type="xs:string"/>
+				<xs:attributeGroup ref="c:RecordAdministratorAttributes"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CommentList">
+		<xs:sequence>
+			<xs:element name="Comment" type="tns:Comment" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Company">
+		<xs:sequence>
+			<xs:element name="CompanyName" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="commissionCode" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Customer">
+		<xs:sequence>
+			<xs:element name="PersonName" type="c:PersonName"/>
+			<xs:element name="BusinessTitle" type="xs:string" minOccurs="0"/>
+			<xs:element name="GovernmentIDList" type="c:GovernmentIDList" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="gender" type="c:Gender"/>
+		<xs:attribute name="birthDate" type="xs:date"/>
+	</xs:complexType>
+	<xs:complexType name="NameAddress">
+		<xs:complexContent>
+			<xs:extension base="c:Address">
+				<xs:sequence>
+					<xs:element name="IDs" type="c:UniqueIDList" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="primary" type="xs:boolean"/>
+				<xs:attribute name="displaySequence" type="xs:int"/>
+				<xs:attributeGroup ref="c:RecordAdministratorAttributes"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="NameAddressList">
+		<xs:annotation>
+			<xs:documentation>Collection of NameAddress</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NameAddress" type="tns:NameAddress" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NameCreditCard">
+		<xs:complexContent>
+			<xs:extension base="c:CreditCard">
+				<xs:sequence>
+					<xs:element name="IDs" type="c:UniqueIDList" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="primary" type="xs:boolean"/>
+				<xs:attribute name="displaySequence" type="xs:int"/>
+				<xs:attributeGroup ref="c:RecordAdministratorAttributes"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="NameCreditCardList">
+		<xs:sequence>
+			<xs:element name="NameCreditCard" type="tns:NameCreditCard" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NameMembership">
+		<xs:complexContent>
+			<xs:extension base="c:Membership">
+				<xs:sequence>
+					<xs:element name="IDs" type="c:UniqueIDList" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="primary" type="xs:boolean"/>
+				<xs:attribute name="displaySequence" type="xs:int"/>
+				<xs:attributeGroup ref="c:RecordAdministratorAttributes"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="NameMembershipList">
+		<xs:sequence>
+			<xs:element name="NameMembership" type="tns:NameMembership" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NamePhone">
+		<xs:complexContent>
+			<xs:extension base="c:Phone">
+				<xs:sequence>
+					<xs:element name="IDs" type="c:UniqueIDList" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="primary" type="xs:boolean"/>
+				<xs:attribute name="displaySequence" type="xs:int"/>
+				<xs:attributeGroup ref="c:RecordAdministratorAttributes"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="NamePhoneList">
+		<xs:annotation>
+			<xs:documentation>Collection of NamePhone</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NamePhone" type="tns:NamePhone" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NegotiatedRate">
+		<xs:sequence>
+			<xs:element name="IDs" type="c:UniqueIDList" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="resortCode" type="xs:string"/>
+		<xs:attribute name="rateCode" type="xs:string" use="required"/>
+		<xs:attribute name="commissionCode" type="xs:string"/>
+		<xs:attribute name="beginDate" type="xs:date"/>
+		<xs:attribute name="endDate" type="xs:date"/>
+		<xs:attribute name="displaySequence" type="xs:int"/>
+		<xs:attributeGroup ref="c:RecordAdministratorAttributes"/>
+	</xs:complexType>
+	<xs:complexType name="NegotiatedRateList">
+		<xs:sequence>
+			<xs:element name="NegotiatedRate" type="tns:NegotiatedRate" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Preference">
+		<xs:sequence>
+			<xs:element name="PreferenceDescription" type="c:DescriptiveText"/>
+			<xs:element name="IDs" type="c:UniqueIDList" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="resortCode" type="xs:string"/>
+		<xs:attribute name="preferenceType" type="xs:string"/>
+		<xs:attribute name="otherPreferenceType" type="xs:string"/>
+		<xs:attribute name="preferenceValue" type="xs:string"/>
+		<xs:attributeGroup ref="c:RecordAdministratorAttributes"/>
+	</xs:complexType>
+	<xs:complexType name="PreferenceList">
+		<xs:sequence>
+			<xs:element name="Preference" type="tns:Preference" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Profile">
+		<xs:sequence>
+			<xs:element name="IDs" type="c:UniqueIDList" minOccurs="0"/>
+			<xs:choice>
+				<xs:element name="Customer" type="tns:Customer"/>
+				<xs:element name="Company" type="tns:Company"/>
+			</xs:choice>
+			<xs:element name="CreditCards" type="tns:NameCreditCardList" minOccurs="0"/>
+			<xs:element name="Addresses" type="tns:NameAddressList" minOccurs="0"/>
+			<xs:element name="Blacklist" type="tns:BlackList" minOccurs="0"/>
+			<xs:element name="Phones" type="tns:NamePhoneList" minOccurs="0"/>
+			<xs:element name="Preferences" type="tns:PreferenceList" minOccurs="0"/>
+			<xs:element name="Memberships" type="tns:NameMembershipList" minOccurs="0"/>
+			<xs:element name="NegotiatedRates" type="tns:NegotiatedRateList" minOccurs="0"/>
+			<xs:element name="Comments" type="tns:CommentList" minOccurs="0"/>
+			<xs:element name="UserDefinedValues" type="c:UserDefinedValueList" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="nameType" type="xs:string"/>
+		<xs:attribute name="protected" type="xs:boolean"/>
+		<xs:attribute name="languageCode" type="xs:string"/>
+		<xs:attribute name="nationality" type="xs:string"/>
+		<xs:attribute name="vipCode" type="xs:string"/>
+		<xs:attribute name="taxExempt" type="xs:boolean"/>
+		<xs:attributeGroup ref="c:RecordAdministratorAttributes"/>
+	</xs:complexType>
+	<xs:complexType name="ProfileList">
+		<xs:sequence>
+			<xs:element name="Profile" type="tns:Profile" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProfileLookup">
+		<xs:sequence>
+			<xs:element name="ProfileIDs" type="c:UniqueIDList" minOccurs="0"/>
+			<xs:element name="PersonName" type="c:PersonName"/>
+			<xs:element name="Membership" type="c:Membership" minOccurs="0"/>
+			<xs:element name="Address" type="c:Address" minOccurs="0"/>
+			<xs:element name="GovernmentIDs" type="c:GovernmentIDList" minOccurs="0"/>
+			<xs:element name="birthDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="ResortId" type="xs:string" minOccurs="0"/>
+			<xs:element name="Phone" type="c:Phone" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProfileLookupList">
+		<xs:sequence>
+			<xs:element name="ProfileLookup" type="tns:ProfileLookup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Subscription">
+		<xs:sequence>
+			<xs:element name="ProfileIDs" type="c:UniqueIDList"/>
+		</xs:sequence>
+		<xs:attribute name="subscriptionAction" type="c:SubscriptionAction" use="required"/>
+		<xs:attribute name="otherSubscriptionAction" type="xs:string"/>
+	</xs:complexType>
+	<xs:element name="FetchProfileRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ProfileID" type="c:UniqueID"/>
+				<xs:element name="ResortId" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FetchProfileResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="c:ResultStatus"/>
+				<xs:element name="Profile" type="tns:Profile" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NewProfileRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Profile" type="tns:Profile"/>
+				<xs:element name="ResortId" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NewProfileResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="c:ResultStatus"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UpdateProfileRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Profile" type="tns:Profile"/>
+				<xs:element name="ResortId" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UpdateProfileResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="c:ResultStatus"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="LookupRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Lookup" type="tns:ProfileLookup"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="LookupResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="c:ResultStatus"/>
+				<xs:element name="ProfileLookups" type="tns:ProfileLookupList"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SubscriptionRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Subscription" type="tns:Subscription"/>
+				<xs:element name="ResortId" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SubscriptionResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="c:ResultStatus"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
